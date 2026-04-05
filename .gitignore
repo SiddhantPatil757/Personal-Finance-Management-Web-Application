@@ -1,6 +1,7 @@
-
-Daily_Finance_Management/db.sqlite3
-
-Daily_Finance_Management/finance/__pycache__
-
-Daily_Finance_Management/venv
+venv/
+__pycache__/
+db.sqlite3
+*.pyc
+.env
+*.log
+*.zip
