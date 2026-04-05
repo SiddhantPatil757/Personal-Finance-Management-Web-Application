@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daily Finance Dashboard</title>
+</head>
+<body>
+
+    <h1>Daily Finance Dashboard</h1>
+
+    <!-- Month Filter -->
+    <form method="GET">
+        <label>Select Month:</label>
+        <input type="month" name="month" value="{{ selected_month }}">
+        <button type="submit">Filter</button>
+    </form>
+
+    <hr>
+
+    <!-- Summary -->
+    <h2>Total Income: ₹ {{ total_income }}</h2>
+    <h2>Total Expense: ₹ {{ total_expense }}</h2>
+    <h2>Total Saving: ₹ {{ total_saving }}</h2>
+    <h2>Net Balance: ₹ {{ net_balance }}</h2>
+
+    <hr>
+
+    <!-- Saving Goal -->
+    <h3>Saving Goal</h3>
+
+    {% if goal_amount > 0 %}
+        <p><strong>Target:</strong> ₹ {{ goal_amount }}</p>
+        <p><strong>Saved:</strong> ₹ {{ total_saving }}</p>
+        <p><strong>Progress:</strong> {{ progress|floatformat:2 }}%</p>
+
+        <div style="width:300px; background:#ddd; border-radius:5px;">
+            <div style="width:{{ progress }}%; background:green; color:white; text-align:center; border-radius:5px;">
+                {{ progress|floatformat:1 }}%
+            </div>
+        </div>
+    {% else %}
+        <p>No goal set.</p>
+    {% endif %}
+
+    <a href="/set-goal/">Set Saving Goal</a>
+
+    <hr>
+
+    <!-- Budget vs Actual -->
+<h2>Budget vs Actual</h2>
+
+<table border="1">
+<tr>
+    <th>Category</th>
+    <th>Budget</th>
+    <th>Spent</th>
+    <th>Remaining</th>
+    <th>Status</th>
+    <th>Progress</th>
+</tr>
+
+{% for item in budget_vs_actual %}
+<tr>
+    <td>{{ item.category }}</td>
+    <td>{{ item.budget }}</td>
+    <td>{{ item.spent }}</td>
+    <td>{{ item.remaining }}</td>
+    <td>{{ item.status }}</td>
+    <td>{{ item.percentage }} % </td>
+</tr>
+    <!-- DEBUG -->
+    <td>{{ b.percentage }}</td>
+
+    <!-- PROGRESS BAR -->
+    <td style="width:200px;">
+    <div style="background:#eee; border-radius:5px; height:10px;">
+        <div style="
+            width: {{ b.percentage }}%;
+            height:10px;
+            border-radius:5px;
+            background-color:
+                {% if b.status == 'over' %}red
+                {% elif b.status == 'near' %}orange
+                {% else %}green
+                {% endif %};
+        ">
+        </div>
+    </div>
+</td>
+</tr>
+
+<td style="width:200px;">
+    <div style="background:#eee; border-radius:5px; height:10px;">
+        <div style="
+            width: {{ b.percentage|default:0 }}%;
+            height:10px;
+            border-radius:5px;
+            background-color:
+                {% if b.status == 'over' %}red
+                {% elif b.status == 'near' %}orange
+                {% else %}green
+                {% endif %};
+        ">
+        </div>
+    </div>
+</td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="5">No budget data available</td>
+</tr>
+{% endfor %}
+
+</table>
+
+    <!-- Expense Breakdown -->
+    <h3>Expense Breakdown</h3>
+
+    <ul>
+        {% for item in category_data %}
+            <li>{{ item.category }} : ₹ {{ item.total }}</li>
+        {% empty %}
+            <li>No expenses yet</li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+
+    <!-- Action Buttons -->
+    <h3>Actions</h3>
+
+    <a href="/add-income/">➕ Add Income</a><br><br>
+    <a href="/add-expense/">➖ Add Expense</a><br><br>
+    <a href="/add-budget/">📊 Add Budget</a><br><br>
+    <a href="/set-goal/">🎯 Set Goal</a><br><br>
+    <a href="/add-saving/">💰 Add Saving</a><br><br>
+
+</body>
+</html>

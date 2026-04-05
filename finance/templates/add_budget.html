@@ -1,0 +1,17 @@
+
+<h2>Add Budget</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Category:</label>
+    {{ form.category }}
+
+    <label>Amount:</label>
+    {{ form.allocated_amount }}
+
+    <label>Month:</label>
+    {{ form.month }}
+
+    <button type="submit">Save Budget</button>
+</form>

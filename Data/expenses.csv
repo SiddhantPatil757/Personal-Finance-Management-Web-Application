@@ -1,0 +1,12 @@
+date,category,amount,payment_Mode,description
+,,,,
+16-02-2026,Food,6000,Cash,mess
+16-02-2026,Fuel,3520,UPI,
+16-02-2026,Rent,12000,Net Banking,
+16-02-2026,Bills,3250,Credit Card,
+16-02-2026,Travel,5,Wallet,
+16-02-2026,Shopping,3600,Debit Card,
+16-02-2026,Entertainment,1200,UPI,
+16-02-2026,Other,2800,Cash,
+16-02-2026,Shopping,400,UPI,
+16-02-2026,Shopping,8000,UPI,

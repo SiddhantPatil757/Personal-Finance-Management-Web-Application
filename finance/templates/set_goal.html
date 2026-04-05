@@ -1,0 +1,10 @@
+
+<h2>Set Saving Goal</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Goal</button>
+</form>
+
+<a href="/">Back</a>
